@@ -36,7 +36,6 @@
             //Our variables from the widget settings.
             $title = apply_filters('widget_title', $instance['title'] );
             $name = $instance['name'];
-            $show_info = isset( $instance['show_info'] ) ? $instance['show_info'] : false;
 
             echo $before_widget;
 
@@ -46,7 +45,7 @@
 
             //Display the name
             if ( $name )
-                printf( '<p>' . __('Hey their Sailor! My name is %1$s.', $this->__classname) . '</p>', $name );
+                printf ( $name );
 
 
             if ( $show_info )
@@ -64,7 +63,6 @@
             //Strip tags from title and name to remove HTML
             $instance['title'] = strip_tags( $new_instance['title'] );
             $instance['name'] = strip_tags( $new_instance['name'] );
-            $instance['show_info'] = $new_instance['show_info'];
 
             return $instance;
         }
@@ -73,7 +71,7 @@
         function form( $instance ) {
 
             //Set up some default widget settings.
-            $defaults = array( 'title' => __('Example', $this->__classname), 'name' => __('Bilal Shaheen', $this->__classname), 'show_info' => true );
+            $defaults = array( 'title' => __('', $this->__classname), 'name' => __('', $this->__classname) );
             $instance = wp_parse_args( (array) $instance, $defaults ); ?>
 
             //Widget Title: Text Input.
@@ -88,12 +86,6 @@
                 <input id="<?php echo $this->get_field_id( 'name' ); ?>" name="<?php echo $this->get_field_name( 'name' ); ?>" value="<?php echo $instance['name']; ?>" style="width:100%;" />
             </p>
 
-
-            //Checkbox.
-            <p>
-                <input class="checkbox" type="checkbox" <?php checked( $instance['show_info'], true ); ?> id="<?php echo $this->get_field_id( 'show_info' ); ?>" name="<?php echo $this->get_field_name( 'show_info' ); ?>" />
-                <label for="<?php echo $this->get_field_id( 'show_info' ); ?>"><?php _e('Display info publicly?', $this->__classname); ?></label>
-            </p>
 
         <?php
         }
